@@ -18,8 +18,8 @@ PATH_TO_ROOT = os.getenv("ROOT_2")
 # Parameters related to the specific station
 CLIENT_ID = "Air Quality Station 2"
 LATITUDE, LONGITUDE = -23.546347, -46.627245
-
-TOPIC = "test/testing"
+ADDRESS = "Parque Dom Pedro II"
+TOPIC = "air-quality/station2/data"
 RANGE = 10
 
 if __name__ == "__main__":
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     myAWSIoTMQTTClient.connect()
     print('Begin Publish')
     for i in range (RANGE):
-        message = {"id" : CLIENT_ID, "geolocation" : [LATITUDE, LONGITUDE], "payload" : aqi.get_data()}
+        message = {"id" : CLIENT_ID, "address": ADDRESS,"geolocation" : [LATITUDE, LONGITUDE], "payload" : aqi.get_data()}
         myAWSIoTMQTTClient.publish(TOPIC, json.dumps(message), 1) 
         print("Published: '" + json.dumps(message) + "'\n")
-        t.sleep(2)
+        t.sleep(5)
     print('Publish End')
     myAWSIoTMQTTClient.disconnect()
